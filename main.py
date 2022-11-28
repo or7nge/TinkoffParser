@@ -6,7 +6,6 @@ import requests
 
 LIMIT = 30
 
-webbrowser.open("result.txt")
 table = requests.get("https://algocode.ru/standings_data/ap_2022").json()
 
 for user in table["users"]:
@@ -65,4 +64,5 @@ infile += f"\n\nSOLVED: {total_solved}/{len(problems)}  -  {round(total_solved /
 infile += f"\nMARK: {round(mark, 2)}"
 with open("result.txt", "w", encoding="utf-8") as f:
     f.write(infile)
+
 webbrowser.open("result.txt")
