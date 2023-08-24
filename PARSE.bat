@@ -1,1 +1,1 @@
-python "C:\Users\Andrey\Documents\Prom Prog\Tinkoff Parser\main.py"
+python main.py
