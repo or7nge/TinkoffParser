@@ -36,12 +36,6 @@ for contest in table["contests"]:
     for problem in contest["problems"]:
         if "A'" not in problem["short"]:
             continue
-        problems.append(
-            Problem(
-                contest["title"],
-                problem["short"] + "." + problem["long"]
-            )
-        )
         try:
             if contest["users"][my_id][problem["index"]]["verdict"] == "OK":
                 total_solved += 1
@@ -49,6 +43,7 @@ for contest in table["contests"]:
                 continue
         except:
             pass
+        problems.append(Problem(contest["title"], problem["short"] + "." + problem["long"]))
         for user in contest["users"].values():
             if user[problem["index"]]["verdict"] == "OK":
                 problems[-1].solved += 1
@@ -58,9 +53,7 @@ table = []
 for i in problems[:LIMIT]:
     table.append([i.contest, i.title, i.solved])
 
-infile = tabulate(
-    table, headers=["Контест", "Задача", "Решило", "Цена"], tablefmt="github"
-)
+infile = tabulate(table, headers=["Контест", "Задача", "Решило", "Цена"], tablefmt="github")
 infile += f"\n\nSOLVED: {total_solved}/{len(problems)}  -  {round(total_solved / len(problems) * 100)}% "
 with open("result.txt", "w", encoding="utf-8") as f:
     f.write(infile)
