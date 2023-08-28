@@ -31,11 +31,13 @@ class Problem:
 problems = []
 mark = 0
 total_solved = 0
+total_problems = 0
 for contest in table["contests"]:
     i_solved = 0
     for problem in contest["problems"]:
         if "A'" not in problem["short"]:
             continue
+        total_problems += 1
         try:
             if contest["users"][my_id][problem["index"]]["verdict"] == "OK":
                 total_solved += 1
@@ -54,7 +56,7 @@ for i in problems[:LIMIT]:
     table.append([i.contest, i.title, i.solved])
 
 infile = tabulate(table, headers=["Контест", "Задача", "Решило", "Цена"], tablefmt="github")
-infile += f"\n\nSOLVED: {total_solved}/{len(problems)}  -  {round(total_solved / len(problems) * 100)}% "
+infile += f"\n\nSOLVED: {total_solved}/{total_problems}  -  {round(total_solved / total_problems * 100)}% "
 with open("result.txt", "w", encoding="utf-8") as f:
     f.write(infile)
 
